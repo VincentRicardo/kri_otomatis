@@ -1,0 +1,10 @@
+# Goal
+int32[20] servo
+---
+# Result
+bool send
+bool send1
+int32[10] servoo
+---
+#Feedback
+int64 number
