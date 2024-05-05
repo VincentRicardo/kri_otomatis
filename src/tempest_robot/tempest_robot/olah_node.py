@@ -116,6 +116,8 @@ class MyNode(Node):
         self.cam = [0,0]
         self.gyro = [0,0]
         self.tof1 = 0
+        self.tof2 = 0
+        self.tof3 = 0
         
 
     
