@@ -106,6 +106,9 @@ class MyNode(Node):
 
 
         self.publish_data = self.create_publisher(Int32MultiArray, "/state", 1)
+        self.maju_mundur_data = self.create_publisher(Int32MultiArray, "/maju_mundur", 1)
+        self.belok_data = self.create_publisher(Int32MultiArray, "/belok", 1)
+        self.capit_data = self.create_publisher(Int32MultiArray, "/capit", 1)
 
         self.timer_ = self.create_timer(0.1, self.send_mode_call)
         self.first_ = self.create_timer(5, self.send_first)
@@ -134,11 +137,13 @@ class MyNode(Node):
         self.get_logger().info("Receiving ToF 1 Distance: " + str(message.data) + " cm")
         self.tof1 = message.data
         self.tof1_flag = True
+        
     #sebelah kiri robot
     def tof2_ (self, message = Int32):
         self.get_logger().info("Receiving ToF 2 Distance: " + str(message.data) + " cm")
         self.tof2 = message.data
         self.tof2_flag = True
+        
     #sebelah kanan robot
     def tof3_ (self, message = Int32):
         self.get_logger().info("Receiving ToF 3 Distance: " + str(message.data) + " cm")
@@ -158,12 +163,24 @@ class MyNode(Node):
             if self.mode1 == True:
                 if self.tof1 == 3 and self.tof2 == 3 and self.capit_flag == False:
                     #belok kanan 90 derajat
+
+                    #belok = Int32MultiArray()
+                    #belok = []
+                    #self.belok_data.publish(belok)
                     
                 elif self.tof1 == 3 and self.tof3 == 3 and self.capit_flag == False:
                     #belok kiri 90 derajat
                     
+                    #belok = Int32MultiArray()
+                    #belok = []
+                    #self.belok_data.publish(belok)
+                    
                 elif abs(self.tof2 - self.tof3) < 5:
                     #maju terus sampe kiri kanan beda
+                    
+                    #maju_mundur = Int32MultiArray()
+                    #maju_mundur = [] #maju/mundur berapa jauh sama yaw
+                    #self.maju_mundur_data.publish(maju_mundur)
                     
                 elif abs (self.tof2 - self.tof3) >= 5:
                     #belok kiri 90 derajat terus masuk ke mode pencapitan
