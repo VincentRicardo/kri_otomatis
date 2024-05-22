@@ -30,7 +30,7 @@ def servo_calculation(geser):
     #buat kaki tengah
 
     y = 0 #maju 5 cm, nilai cam distance ngaruh kesini
-    x = 11 + geser #+ (17.5*(math.tan((-yaw*math.pi)/180)))
+    x = 11 - geser #+ (17.5*(math.tan((-yaw*math.pi)/180)))
     theta1_Zero = 0
     theta2_Zero = 199.4257715524105
     theta3_Zero = 72.07978686060771
@@ -49,32 +49,34 @@ def servo_calculation(geser):
 
     degree = []
     degree.append(0)
+    #geser kiri
     #A
     degree.append(derajat[1] - thetaa_1)
     degree.append(derajat[2] + thetaa_2)
-    degree.append(derajat[3] - thetaa_3)
+    degree.append(derajat[3] + thetaa_3)
     #C
-    degree.append(derajat[4] - thetaa_1)
-    degree.append(derajat[5] + thetaa_2)
+    degree.append(derajat[4] + thetaa_1)
+    degree.append(derajat[5] - thetaa_2)
     degree.append(derajat[6] - thetaa_3)
-
     #E
     degree.append(derajat[7] + theta_1)
     degree.append(derajat[8] + theta_2)
     degree.append(derajat[9] - theta_3)
+
+    #geser kanan
     #B
-    degree.append(derajat[10] - theta_1)
+    degree.append(derajat[10] + theta_1)
     degree.append(derajat[11] + theta_2)
-    degree.append(derajat[12] - theta_3)
+    degree.append(derajat[12] + theta_3)
     
     #D
     degree.append(derajat[13] + thetaa_1)
     degree.append(derajat[14] + thetaa_2)
     degree.append(derajat[15] + thetaa_3)
     #F
-    degree.append(derajat[16] + thetaa_1)
-    degree.append(derajat[17] - thetaa_2)
-    degree.append(derajat[18] - thetaa_3)
+    degree.append(derajat[16] - thetaa_1)
+    degree.append(derajat[17] + thetaa_2)
+    degree.append(derajat[18] + thetaa_3)
 
     return degree
 
