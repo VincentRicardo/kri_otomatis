@@ -12,7 +12,7 @@ tibia = 13
 alpha = 10
 
 def servo_calculation(jarak, yaw):
-    derajat = [0, 65, 90, 180, 85, 90, 0, 40, 100, 180, 30, 80, 5, 55, 105, 180, 80, 90, 0]
+    derajat = [0, 65, 90, 180, 85, 90, 0, 40, 100, 180, 30, 80, 5, 55, 105, 180, 80, 100, 0]
     #buat kaki tengah
     if yaw > 45:
         yaw = 45
