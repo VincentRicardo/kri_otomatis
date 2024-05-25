@@ -212,6 +212,20 @@ class MyNode(Node):
                     self.flag_belok_capit = True
                     self.get_logger().info("Ngadep Kiri")
                     self.flag = 0
+                elif self.tof1 <= 5 & (self.tof2 + self.tof3)/2 >= 30 and self.flag == 0:
+                    belok = Int32()
+                    belok.data = 22
+                    self.belok_data.publish(belok)
+                    self.flag_belok_capit = True
+                    self.get_logger().info("Belok Kiri")
+                    self.mode1 = False
+                    self.mode2 = True
+                else:
+                    maju_mundur = Int32MultiArray()
+                    maju_mundur.data = [5, int(self.gyro[0])] #maju/mundur berapa jauh sama yaw || yaw, jarak, angle
+                    self.maju_mundur_data.publish(maju_mundur)
+                    self.get_logger().info("Maju")
+
                 
                 elif self.capit_flag == True and self.lepas == True and self.flag == 0:
                     #nyapit
