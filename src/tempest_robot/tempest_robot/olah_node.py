@@ -26,7 +26,7 @@ alpha = 10
 
 
 def servo_calculation(geser):
-    derajat = [0, 65, 90, 180, 85, 90 ,0, 40, 100, 180, 30, 80, 5, 55, 105, 180, 80, 90, 0]
+    derajat = [0, 65, 90, 180, 85, 90 ,0, 40, 100, 180, 30, 80, 5, 55, 105, 180, 80, 100, 0]
     #buat kaki tengah
 
     y = 0 #maju 5 cm, nilai cam distance ngaruh kesini
@@ -181,7 +181,7 @@ class MyNode(Node):
     def send_first(self):
         if self.first_flag == False:
             ddd = Int32MultiArray()
-            ddd.data = [1, 65, 90, 180, 85, 90 ,0, 40, 100, 180, 30, 80, 5, 55, 105, 180, 80, 90, 0]
+            ddd.data = [1, 65, 90, 180, 85, 90 ,0, 40, 100, 180, 30, 80, 5, 55, 105, 180, 80, 100, 0]
             self.publish_data.publish(ddd)
             self.first_flag = True
 
@@ -257,7 +257,7 @@ class MyNode(Node):
                         #belok.data = 22
                         #self.belok_data.publish(belok)
                         ddd = Int32MultiArray()
-                        ddd.data = [1, 65, 90, 140, 85, 90 ,15, 40, 110, 180, 30, 80, 5, 55, 105, 180, 80, 90, 20]
+                        ddd.data = [1, 65, 90, 140, 85, 90 ,15, 40, 110, 180, 30, 80, 5, 55, 105, 180, 80, 100, 20]
                         self.publish_data.publish(ddd) 
                         #self.flag_belok_capit = True
                         #self.capit_flag = True
@@ -270,7 +270,7 @@ class MyNode(Node):
                         #belok.data = 11
                         #self.belok_data.publish(belok)
                         ddd = Int32MultiArray()
-                        ddd.data = [1, 65, 90, 140, 85, 90 ,15, 40, 110, 180, 30, 80, 5, 55, 105, 180, 80, 90, 20]
+                        ddd.data = [1, 65, 90, 140, 85, 90 ,15, 40, 110, 180, 30, 80, 5, 55, 105, 180, 80, 100, 20]
                         self.publish_data.publish(ddd)
                         #self.flag_belok_capit = True
                         self.get_logger().info("Belok Kanan")
