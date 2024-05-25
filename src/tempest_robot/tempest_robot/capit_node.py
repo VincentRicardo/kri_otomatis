@@ -22,7 +22,7 @@ tibia = 13
 alpha = 10
 
 def servo_calculation(jarak):
-    derajat = [0, 65, 90, 180, 85, 90 ,0, 40, 100, 180, 30, 80, 5, 55, 105, 180, 80, 90, 0]
+    derajat = [0, 65, 90, 180, 85, 90 ,0, 40, 100, 180, 30, 80, 5, 55, 105, 180, 80, 100, 0]
     #buat kaki tengah
     y = jarak  #maju 5 cm, nilai cam distance ngaruh kesini
     x = 11
@@ -91,7 +91,7 @@ class MyNode(Node):
           info.data[0] = 2
           self.publish_data.publish(info)
           tahan_waktu(3)
-          info.data = [4, 65, 90, 180, 85, 90 ,0, 40, 100, 180, 30, 80, 5, 55, 105, 180, 80, 90, 0] #nyapit
+          info.data = [4, 65, 90, 180, 85, 90 ,0, 40, 100, 180, 30, 80, 5, 55, 105, 180, 80, 100, 0] #nyapit
           self.publish_data.publish(info)
           tahan_waktu(3)
           info.data = servo_calculation(-5) #mundur
@@ -105,7 +105,7 @@ class MyNode(Node):
           self.talking_one.publish(copy)
       elif self.capit_flag == True:
           info = Int32MultiArray()
-          info.data = [4, 65, 90, 180, 85, 90 ,0, 40, 100, 180, 30, 80, 5, 55, 105, 180, 80, 90, 0]
+          info.data = [4, 65, 90, 180, 85, 90 ,0, 40, 100, 180, 30, 80, 5, 55, 105, 180, 80, 100, 0]
           self.publish_data.publish(info)
           self.capit_flag = not self.capit_flag
           copy = String()
