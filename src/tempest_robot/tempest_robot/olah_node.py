@@ -101,6 +101,7 @@ class MyNode(Node):
         self.lepas = True #sebaliknya
 
         self.flag = 111
+        self.sema = 0
         self.flag_belok_capit = False #flag lagi proses belok atau nyapit
 
         self.maju = False
@@ -227,124 +228,175 @@ class MyNode(Node):
                     self.get_logger().info("Maju")
 
                 
-                elif self.capit_flag == True and self.lepas == True and self.flag == 0:
-                    #nyapit
-                    info = Int32MultiArray()
-                    if self.cam[1] < -4: #geser kanan
-                        info.data = servo_calculation(4) #ganti flag depannya
-                        info.data[0] = int(6)
-                        self.publish_data.publish(info)
-                    elif self.cam[1] > 4: #geser kiri
-                        info.data = servo_calculation(4) #ganti flag depannya
-                        info.data[0] = int(5)
-                        self.publish_data.publish(info)
-                    else:
-                        if self.cam[0] > 5:
-                            maju_mundur = Int32MultiArray()
-                            maju_mundur.data = [3, 0] #maju/mundur berapa jauh sama yaw || yaw, jarak, angle
-                            self.maju_mundur_data.publish(maju_mundur)
-                            self.get_logger().info("Maju")
-                        else:
-                            dataa= Int32()
-                            dataa.data = int(self.cam[0])
-                            self.capit_data.publish(dataa)
-                            self.flag_belok_capit = True
-                            self.lepas == False
-                            self.capit_flag = False
-                            self.get_logger().info("Nyapit")
-                elif self.flag == 2:
-                    data = Int32()
-                    data.data = 3 #jarak
-                    self.capit_data.publish(data)
-                    self.flag_belok_capit = True
-                    self.lepas == True
-                    self.get_logger().info("Lepas Nyapit")
-                    self.flag = 0
-                    self.kanan = False
-                    self.kiri = True
-                    self.mode1 = False
-                    self.mode2 = True
+                # elif self.capit_flag == True and self.lepas == True and self.flag == 0:
+                #     #nyapit
+                #     info = Int32MultiArray()
+                #     if self.cam[1] < -4: #geser kanan
+                #         info.data = servo_calculation(4) #ganti flag depannya
+                #         info.data[0] = int(6)
+                #         self.publish_data.publish(info)
+                #     elif self.cam[1] > 4: #geser kiri
+                #         info.data = servo_calculation(4) #ganti flag depannya
+                #         info.data[0] = int(5)
+                #         self.publish_data.publish(info)
+                #     else:
+                #         if self.cam[0] > 5:
+                #             maju_mundur = Int32MultiArray()
+                #             maju_mundur.data = [3, 0] #maju/mundur berapa jauh sama yaw || yaw, jarak, angle
+                #             self.maju_mundur_data.publish(maju_mundur)
+                #             self.get_logger().info("Maju")
+                #         else:
+                #             dataa= Int32()
+                #             dataa.data = int(self.cam[0])
+                #             self.capit_data.publish(dataa)
+                #             self.flag_belok_capit = True
+                #             self.lepas == False
+                #             self.capit_flag = False
+                #             self.get_logger().info("Nyapit")
+                # elif self.flag == 2:
+                #     data = Int32()
+                #     data.data = 3 #jarak
+                #     self.capit_data.publish(data)
+                #     self.flag_belok_capit = True
+                #     self.lepas == True
+                #     self.get_logger().info("Lepas Nyapit")
+                #     self.flag = 0
+                #     self.kanan = False
+                #     self.kiri = True
+                #     self.mode1 = False
+                #     self.mode2 = True
 
-                elif self.tof1 > 10 or self.kiri == False:
-                    if abs((self.tof2 + self.tof3)/2) > 15 and self.kiri == True and self.flag > 16:
-                        #belok = Int32()
-                        #belok.data = 22
-                        #self.belok_data.publish(belok)
-                        ddd = Int32MultiArray()
-                        ddd.data = [1, 65, 90, 140, 85, 90 ,15, 40, 110, 180, 30, 80, 5, 55, 105, 180, 80, 100, 20]
-                        self.publish_data.publish(ddd) 
-                        #self.flag_belok_capit = True
-                        #self.capit_flag = True
-                        self.get_logger().info("Belok Kiri Ngadep Capit")
-                        self.kiri = False
-                        self.kanan = True
-                        self.flag = 0
-                    elif abs((self.tof2 + self.tof3)/2) > 15 and self.kanan == True:
-                        #belok = Int32()
-                        #belok.data = 11
-                        #self.belok_data.publish(belok)
-                        ddd = Int32MultiArray()
-                        ddd.data = [1, 65, 90, 140, 85, 90 ,15, 40, 110, 180, 30, 80, 5, 55, 105, 180, 80, 100, 20]
-                        self.publish_data.publish(ddd)
-                        #self.flag_belok_capit = True
-                        self.get_logger().info("Belok Kanan")
-                        self.flag = self.flag + 1
-                        self.kanan = False
-                    else:
-                        if abs((self.tof2 + self.tof3)/2) > 15 and self.kiri == True:
-                            self.flag = self.flag + 5
-                        maju_mundur = Int32MultiArray()
-                        maju_mundur.data = [5, int(self.gyro[0])] #maju/mundur berapa jauh sama yaw || yaw, jarak, angle
-                        self.maju_mundur_data.publish(maju_mundur)
-                        self.get_logger().info("Maju")
+                # elif self.tof1 > 10 or self.kiri == False:
+                #     if abs((self.tof2 + self.tof3)/2) > 15 and self.kiri == True and self.flag > 16:
+                #         #belok = Int32()
+                #         #belok.data = 22
+                #         #self.belok_data.publish(belok)
+                #         ddd = Int32MultiArray()
+                #         ddd.data = [1, 65, 90, 140, 85, 90 ,15, 40, 110, 180, 30, 80, 5, 55, 105, 180, 80, 100, 20]
+                #         self.publish_data.publish(ddd) 
+                #         #self.flag_belok_capit = True
+                #         #self.capit_flag = True
+                #         self.get_logger().info("Belok Kiri Ngadep Capit")
+                #         self.kiri = False
+                #         self.kanan = True
+                #         self.flag = 0
+                #     elif abs((self.tof2 + self.tof3)/2) > 15 and self.kanan == True:
+                #         #belok = Int32()
+                #         #belok.data = 11
+                #         #self.belok_data.publish(belok)
+                #         ddd = Int32MultiArray()
+                #         ddd.data = [1, 65, 90, 140, 85, 90 ,15, 40, 110, 180, 30, 80, 5, 55, 105, 180, 80, 100, 20]
+                #         self.publish_data.publish(ddd)
+                #         #self.flag_belok_capit = True
+                #         self.get_logger().info("Belok Kanan")
+                #         self.flag = self.flag + 1
+                #         self.kanan = False
+                #     else:
+                #         if abs((self.tof2 + self.tof3)/2) > 15 and self.kiri == True:
+                #             self.flag = self.flag + 5
+                #         maju_mundur = Int32MultiArray()
+                #         maju_mundur.data = [5, int(self.gyro[0])] #maju/mundur berapa jauh sama yaw || yaw, jarak, angle
+                #         self.maju_mundur_data.publish(maju_mundur)
+                #         self.get_logger().info("Maju")
             
 
             if self.mode2 == True: 
-                if self.flag == 0:
-                    #belok kiri 90 derajat
+                if (self.tof2 + self.tof3)/2 >= 20 and self.flag == 3:
+                    info = Int32MultiArray()
+                    #nyerong kiri
+                    info.data = [0, 105, 90, 180, 125, 90 ,0, 80, 100, 180, 70, 80, 5, 95, 105, 180, 120,100, 0]
+                    self.flag = self.flag + 1
+                    self.publish_data.publish(info)
+                    self.sema = 1
+                elif self.tof1 < 10 and (self.tof2 +self.tof3)/2 < 15 and self.sema == 1:
+                    #belok kiri
                     belok = Int32()
                     belok.data = 22
                     self.belok_data.publish(belok)
-                    self.flag = 1
-                elif self.tof1 <= 10 and abs(self.tof2 - self.tof3) > 17 and self.capit_flag == False and self.lepas == True and self.maju == False and self.flag == 0:
-                    #belok kiri 90 derajat
+                    self.flag_belok_capit = True
+                    self.get_logger().info("Belok Kiri")
+                    self.sema = 2
+                elif self.tof1 < 10 and (self.tof2 +self.tof3)/2 < 15 and self.sema == 2:
+                    #nyerong kanan
+                    info = Int32MultiArray()
+                    info.data = [0, 25, 90, 180, 45, 90 ,0, 0, 100, 180, 0, 80, 5, 15, 105, 180, 40, 100, 0]
+                    self.publish_data.publish(info)
+                    self.sema == 3
+                elif self.tof1 < 10 and (self.tof2 < 5 and self.sema == 3:
+                    #belok kanan
+                    belok = Int32()
+                    belok.data = 11
+                    self.belok_data.publish(belok)
+                    self.flag_belok_capit = True
+                    self.get_logger().info("Belok Kanan")
+                    self.sema = 4
+                elif self.tof1 < 10 and (self.tof2 < 5 and self.sema == 4:
+                    #belok kiri
                     belok = Int32()
                     belok.data = 22
                     self.belok_data.publish(belok)
-                    self.kiri= True
-                    self.maju = True
-                elif self.tof1 > 20 and self.maju == True:
-                    #maju terus sampe kiri kanan beda
-                    maju_mundur = Int32()
-                    maju_mundur.data = int(self.gyro[0]) #maju/mundur berapa jauh sama yaw || yaw, jarak, angle
+                    self.flag_belok_capit = True
+                    self.get_logger().info("Belok Kiri")
+                    self.mode2 = False
+                    self.mode3 = True
+                    self.flag = 0
+                    self.sema = 0
+                else:
+                    maju_mundur = Int32MultiArray()
+                    maju_mundur.data = [5, int(self.gyro[0])] #maju/mundur berapa jauh sama yaw || yaw, jarak, angle
                     self.maju_mundur_data.publish(maju_mundur)
-                elif self.tof1 < 19:
-                    if self.kiri == True:
-                        if self.flag == 2:
-                            self.kiri = False
-                            self.kanan = True
-                        if self.flag == 4:
-                            self.mode2 = False
-                            self.mode3 = True
-                        #belok kiri 90 derajat
-                        belok = Int32()
-                        belok.data = 22
-                        self.belok_data.publish(belok)
-                        self.flag = self.flag + 1
-                    elif self.kanan == True:
-                        if self.flag == 4:
-                            self.kiri = True
-                            self.kanan = False
-                        belok = Int32()
-                        belok.data = 11
-                        self.belok_data.publish(belok)
-                        self.flag_belok_capit = True
-                        self.flag = self.flag + 1
-                        self.get_logger().info("Belok Kanan")
+                    self.get_logger().info("Maju")
+                    self.flag = self.flag + 1
 
 
 
-            # if self.mode3 == True:
+            
+                # if self.flag == 0:
+                #     #belok kiri 90 derajat
+                #     belok = Int32()
+                #     belok.data = 22
+                #     self.belok_data.publish(belok)
+                #     self.flag = 1
+                # elif self.tof1 <= 10 and abs(self.tof2 - self.tof3) > 17 and self.capit_flag == False and self.lepas == True and self.maju == False and self.flag == 0:
+                #     #belok kiri 90 derajat
+                #     belok = Int32()
+                #     belok.data = 22
+                #     self.belok_data.publish(belok)
+                #     self.kiri= True
+                #     self.maju = True
+                # elif self.tof1 > 20 and self.maju == True:
+                #     #maju terus sampe kiri kanan beda
+                #     maju_mundur = Int32()
+                #     maju_mundur.data = int(self.gyro[0]) #maju/mundur berapa jauh sama yaw || yaw, jarak, angle
+                #     self.maju_mundur_data.publish(maju_mundur)
+                # elif self.tof1 < 19:
+                #     if self.kiri == True:
+                #         if self.flag == 2:
+                #             self.kiri = False
+                #             self.kanan = True
+                #         if self.flag == 4:
+                #             self.mode2 = False
+                #             self.mode3 = True
+                #         #belok kiri 90 derajat
+                #         belok = Int32()
+                #         belok.data = 22
+                #         self.belok_data.publish(belok)
+                #         self.flag = self.flag + 1
+                #     elif self.kanan == True:
+                #         if self.flag == 4:
+                #             self.kiri = True
+                #             self.kanan = False
+                #         belok = Int32()
+                #         belok.data = 11
+                #         self.belok_data.publish(belok)
+                #         self.flag_belok_capit = True
+                #         self.flag = self.flag + 1
+                #         self.get_logger().info("Belok Kanan")
+
+
+
+            if self.mode3 == True:
+                #naik tangga
 
             # if self.mode4 == True:
                 
