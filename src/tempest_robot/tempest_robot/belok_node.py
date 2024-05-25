@@ -26,8 +26,8 @@ class MyNode(Node):
     def fungsi_(self, message = Int32):
       if message.data == 11:
           info = Int32MultiArray()
-          #belok kananderajat = [0, 65, 90, 180, 85, 90 ,0, 40, 110, 180, 30, 80, 5, 55, 105, 180, 80, 90, 0]
-          info.data = [0, 35, 90, 180, 55, 90 ,0, 10, 100, 180, 0, 80, 5, 25, 105, 180, 50, 90, 0]
+          #belok kananderajat = [0, 65, 90, 180, 85, 90 ,0, 40, 110, 180, 30, 80, 5, 55, 105, 180, 80, 100, 0]
+          info.data = [0, 35, 90, 180, 55, 90 ,0, 10, 100, 180, 0, 80, 5, 25, 105, 180, 50, 100, 0]
           self.publish_data.publish(info)
           tahan_waktu(3)
           self.publish_data.publish(info)
@@ -45,7 +45,7 @@ class MyNode(Node):
           info = Int32MultiArray()
           #harus 3 x cycle +- 30 derajat
           #belok kiri
-          info.data = [0, 95, 90, 180, 115, 90 ,0, 70, 100, 180, 60, 80, 5, 85, 105, 180, 110, 90, 0]
+          info.data = [0, 95, 90, 180, 115, 90 ,0, 70, 100, 180, 60, 80, 5, 85, 105, 180, 110,100, 0]
           self.publish_data.publish(info)
           tahan_waktu(3)
           self.publish_data.publish(info)
