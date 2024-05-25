@@ -33,7 +33,7 @@ void berdiri(){
   board1.setPWM(4, 0, angleToPulse(105));    
   board1.setPWM(5, 0, angleToPulse(180));
   board1.setPWM(6, 0, angleToPulse(80)); //35
-  board1.setPWM(7, 0, angleToPulse(90));
+  board1.setPWM(7, 0, angleToPulse(100));
   board1.setPWM(8, 0, angleToPulse(0));
 }
 
@@ -66,7 +66,7 @@ void stand_awal(){
   tahan_waktu(700);
   board1.setPWM(1, 0, angleToPulse(80));
   board1.setPWM(4, 0, angleToPulse(105));
-  board1.setPWM(7, 0, angleToPulse(90));
+  board1.setPWM(7, 0, angleToPulse(100));
 }
 
 void setup() {
@@ -164,7 +164,7 @@ void loop(){
 
       board1.setPWM(4, 0, angleToPulse(105));    
       board1.setPWM(5, 0, angleToPulse(180));
-      board1.setPWM(7, 0, angleToPulse(95));
+      board1.setPWM(7, 0, angleToPulse(100));
       board1.setPWM(8, 0, angleToPulse(25));
       //kaki sebelah ngelebar
       board1.setPWM(1, 0, angleToPulse(sudut[2])); //nambah 15
