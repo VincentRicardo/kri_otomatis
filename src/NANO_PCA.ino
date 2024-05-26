@@ -50,15 +50,17 @@ void berdiri() {
   board1.setPWM(8, 0, angleToPulse(180));
 }
 
-void buka() {
+void tangga() {
   board1.setPWM(0, 0, angleToPulse(65));
   board1.setPWM(1, 0, angleToPulse(110));
   board1.setPWM(2, 0, angleToPulse(180));
   board1.setPWM(3, 0, angleToPulse(85));
   board1.setPWM(4, 0, angleToPulse(90));
   board1.setPWM(5, 0, angleToPulse(0));
-  board1.setPWM(6, 0, angleToPulse(40));
-  board1.setPWM(7, 0, angleToPulse(100));
+  //board1.setPWM(6, 0, angleToPulse(40));
+  //board1.setPWM(7, 0, angleToPulse(100));
+  board1.setPWM(6, 0, angleToPulse(30));
+  board1.setPWM(7, 0, angleToPulse(90));
   board1.setPWM(8, 0, angleToPulse(180));
 }
 
@@ -178,8 +180,12 @@ void loop() {
       board1.setPWM(4, 0, angleToPulse(sudut[5]));
       board1.setPWM(7, 0, angleToPulse(sudut[8]));
 
+      board1.setPWM(2, 0, angleToPulse(sudut[3]));
+      board1.setPWM(5, 0, angleToPulse(sudut[6]));
+      board1.setPWM(8, 0, angleToPulse(sudut[9]));
+      
       tahan_waktu(600);
-      buka();
+      tangga();
     }else if (sudut[0]==5){
       Serial.write(18);
       tahan_waktu(2700);
